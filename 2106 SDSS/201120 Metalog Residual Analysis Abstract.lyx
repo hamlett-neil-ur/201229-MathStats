@@ -1,0 +1,1139 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\usepackage{babel}
+
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{sectsty}
+%\usepackage{graphics}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{url}
+
+
+
+
+
+
+\definecolor{JBlue}{HTML}{0051BA}
+\definecolor{Night}{HTML}{003459}
+\definecolor{Brick}{HTML}{971b2f}
+\definecolor{Lake}{HTML}{2767ff}
+\definecolor{TCotta}{HTML}{c66e43}
+
+\sectionfont{\color{JBlue}}
+\subsectionfont{\color{Night}}
+\subsubsectionfont{\color{Brick}}
+
+\setlength\columnsep{18pt}
+
+\fancypagestyle{mypagestyle}{%
+  	\fancyhf{}% Clear header/footer
+	\fancyhead[RE, LO]{ \href{https://t.ly/qO7i}{Quantifying the bias-variance decomposition}\\
+						\textnormal{\href{https://www.linkedin.com/in/neil-hamlett-strategic-quant/}{N. A. Hamlett, D.Sc., MBA}}}
+	\fancyhead[LE, RO]{Symposium on Data Science and Statistics\\
+				   		Saint Louis, MO, June 2-5, 2021}
+	\fancyfoot[C]{\thepage  \\
+               	 \textcolor{JBlue}{\tiny	©2020 Uncertainty Research, LLC — All Rights Reserved}}
+	  \renewcommand{\headrulewidth}{.4pt}% Header rule of .4pt
+}
+
+
+\fancypagestyle{specialfooter}{%
+  \fancyhf{}
+  \renewcommand\headrulewidth{0pt}
+	\fancyfoot[C]{\thepage \\
+                  \textcolor{JBlue}{\tiny ©2020 Uncertainty Research, LLC — All Rights Reserved} }
+}
+\pagestyle{mypagestyle}
+
+
+%\usepackage{blindtext}
+%\pagestyle{fancy}
+
+
+
+\title{\bfseries{\textcolor{JBlue}{Quantifying the bias-variance decomposition\\using metalog distributions}} \\
+		\textnormal{\normalsize Symposium on Data Science and Statistics\\Saint Louis, MO, June 2-5, 2021}}
+\author{\textcolor{JBlue}{Neil A. Hamlett, D.Sc., MBA} \\
+		\small \includegraphics[height=0.9\baselineskip]{./graphics/manualEmailIcon.svg.png}\textnormal{ neil.hamlett@uncertainty-research.science} \qquad
+		\small \includegraphics[height=1.06125\baselineskip]{./graphics/LinkedInLogo.png}\textnormal{  \href{https://www.linkedin.com/in/neil-hamlett-strategic-quant/}{https://www.linkedin.com/in/neil-hamlett-strategic-quant/}} \\
+		\small \includegraphics[height=1.375\baselineskip]{./graphics/git-github-hub-icon-25.png}\textnormal{  \href{https://hamlett-neil-ur.github.io/}{https://hamlett-neil-ur.github.io/}} \qquad
+		\small \includegraphics[height=1.375\baselineskip]{./graphics/ORCID-ID-icon-1.png}\textnormal{  \href{https://orcid.org/0000-0001-8278-0087}{https://orcid.org/0000-0001-8278-0087}}  }
+\date{}
+\end_preamble
+\options twoside
+\use_default_options true
+\begin_modules
+customHeadersFooters
+multicol
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "Avenir"
+\font_sans "default" "Avenir"
+\font_typewriter "default" "Avenir"
+\font_math "auto" "default"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype true
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 10
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 4cm
+\rightmargin 2cm
+\bottommargin 2.5cm
+\headheight 4.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+sloppy
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+twocolumn
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+maketitle
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{specialfooter}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand{
+\backslash
+topfraction}{.8}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+The bias-variance decomposition (BVD) serves as a key guidepost in machine-learn
+ing practice.
+ Comparing model scores for training, validation, and test data provide
+ qualitative indications of possible model overfitting.
+ Explicit calculation of BVD terms is generally problematic, absent assumptions
+ about convenient probability distributions.
+ 
+\end_layout
+
+\begin_layout Abstract
+Metalog distributions, an emerging technique from the Decision-Analysis
+ community, provide a mechanism for explicit calculation of BVD terms.
+ Metalogs fit arbitrary empirical distributions to closed-form, multiply-differe
+ntiable, continuous functions represented as series.
+ 
+\end_layout
+
+\begin_layout Abstract
+The bias and variance terms result from metalog-distribution fits to prediction-
+model training- and test-data residual errors employing a method resembling
+ Locally Weighted Scatterplot Smoothing (LOWESS).
+ Instead of calculating means as is done with LOWESS, metalog-fit probability-de
+nsity functions are instead obtained.
+ This allows for some statistical inference using machine-learning results,
+ including estimates of prediction and confidence intervals.
+ Applying Kolmogorov-Smirnov or other tests to the resulting bias and variance
+ distributions leads to a quantitative characterization of prediction-model
+ overfitting.
+ 
+\end_layout
+
+\begin_layout Abstract
+Metalog distributions can similarly be employed to estimate Cramer-Row Lower
+ Bounds (CRLB) on estimation-error variance.
+ This occurs from fitting orthogonal-transform-space representations of
+ the explanatory variables to metaled distributions.
+ The CLRB offers a proxy for the irreducible-variance term in the BVD.
+ Explicit calculation of BVD terms using metalog distributions affords the
+ opportunity to extend Analysis of Variance (ANOVA) methods from classical
+ statistics into the machine-learning realm.
+\end_layout
+
+\begin_layout Section*
+Introduction.
+\end_layout
+
+\begin_layout Standard
+The bias-variance decomposition is a key concept for machine learning and
+ data science.
+ Prominently described by 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "p. 233"
+key "Hastie2009"
+literal "false"
+
+\end_inset
+
+, it is commonly used to evaluate whether a model is overfit.
+ In standard practice, data sets are partitioned into training, validation,
+ and test subsets.
+ Statistical models are fit to the training set, often repeatedly through
+ a cross-validation process.
+ One or more statistical scores are calculated for each candidate model.
+ The best model produces the most-favorable score.
+\end_layout
+
+\begin_layout Standard
+The test data are held 
+\begin_inset Quotes eld
+\end_inset
+
+in reserve
+\begin_inset Quotes erd
+\end_inset
+
+.
+ The model best fitting the training and validation data is finally applied
+ to the test data and its score calculated.
+ The score from the test data is compared to that from the training and
+ validation subsets.
+ If the latter score is significantly better than the former, the model
+ is likely to be overfit.
+ Under such circumstances, the model sub-optimally explains data not used
+ in its derivation.
+ 
+\end_layout
+
+\begin_layout Standard
+This approach suffers from two limitations.
+ First, it provides only a qualitative indication of possible overfitting,
+ using model scores as a proxy for actual bias-variance analysis.
+ In contrast, Analysis of Variance (ANOVA) in classical statistics produces
+ extensive insight into the extent to which models' residuals contain unexplaine
+d variance (e.g., 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Dielman2005,Olive2017,Sahai2004"
+literal "false"
+
+\end_inset
+
+).
+ Model-score comparisons alone yield substantially less insight.
+\end_layout
+
+\begin_layout Standard
+Second, the practice described above only considers two of three terms in
+ the bias-variance decomposition.
+ It considers bias, the degree to which the model fails to the structure
+ of the phenomena that produced the data.
+ Also variance quantifies the degree to which the model fits the idiosyncratic
+ randomness of the training data.
+ 
+\end_layout
+
+\begin_layout Standard
+The bias-variance decomposition in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hastie2009"
+literal "false"
+
+\end_inset
+
+ however contains a third term, the 
+\begin_inset Quotes eld
+\end_inset
+
+irreducible error
+\begin_inset Quotes erd
+\end_inset
+
+.
+ This is the extent to which inherent randomness in the data defies systematic
+ explanation.
+ Irreducible error resembles Information Theory's concept of entropy (e.g.,
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "pp. 33-35"
+key "Cover2006"
+literal "false"
+
+\end_inset
+
+), the irreducible uncertainty in stochastic phenomena from which data result.
+ Not considering irreducible error might lead to under-appreciation of the
+ variance not explained by a model.
+\end_layout
+
+\begin_layout Standard
+Explicit calculation of terms of in the bias-variance decomposition is often
+ inconvenient.
+ The classical statistics community assumes convenient statistical distributions
+ — often from a family based on exponential functions (e.g., 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "chapter 4"
+key "Agresti2013"
+literal "false"
+
+\end_inset
+
+).
+ Machine learning relaxes such assumptions, which are often not valid in
+ the real world anyway.
+\end_layout
+
+\begin_layout Standard
+A recent innovation originating in the decision-analysis community creates
+ the opportunity to calculate decomposition terms explicitly.
+ Applied decision practitioner Tom Keelin developed a method for making
+ calculations based on empirical distributions.
+ Metalog distributions provide an approach to fitting arbitrary empirical
+ distributions to continuous, multiply-differentiable, closed-form functions
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Keelin2016"
+literal "false"
+
+\end_inset
+
+.
+ Closed-form representations for terms in the bias-variance decomposition
+ can thereby be obtained.
+\end_layout
+
+\begin_layout Standard
+Metalog distributions' formulations are based on the quantile function 
+\begin_inset Formula $M_{n}\left(y\right)$
+\end_inset
+
+ defined as
+\begin_inset Formula 
+\[
+x=M_{n}\left(y\right)\Leftrightarrow y=Pr\left\{ x\leq\mathscr{X}\right\} =P_{\mathscr{X}}\left(x\right)\textrm{.}
+\]
+
+\end_inset
+
+The quantile function is estimated using a series
+\begin_inset Formula 
+\begin{multline*}
+\hat{M}_{n}\left(y\right)=\sum_{\nu=1}^{\frac{n}{2}}\left(a_{2\nu-1}\left(y-\frac{1}{2}\right)^{2\nu-1}\right.\\
+\left.+a_{2\nu}\left(y-\frac{1}{2}\right)^{2\nu-1}\ln\left(\frac{y}{1-y}\right)\right)\textrm{.}
+\end{multline*}
+
+\end_inset
+
+The coefficients result from either an ordinary-least-squares (OLS) solution
+ or another linear solver.
+ Probability-density and -distribution functions follow from applying elementary
+ differential and integral calculus to 
+\begin_inset Formula $\hat{M}_{n}\left(y\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section*
+Target audience.
+\end_layout
+
+\begin_layout Standard
+Two distinct constituencies benefit from explicit calculation of bias-variance
+ decomposition terms.
+ Machine-learning and data-science practitioners comprise the first.
+ Explicit calculation of probability distributions associated with each
+ decomposition term opens up the opportunity to more-thoroughly characterize
+ models' degree of fit and residual uncertainty.
+ Expressing bias as a probability distribution, for example, permits articulatio
+n of confidence intervals from machine-learning models.
+ This allows for deeper insight and clearer communication about residual
+ uncertainty than model scores alone.
+\end_layout
+
+\begin_layout Standard
+Statistical inference — not generally attempted in machine-learning contexts
+ — produces uncertainty insights such as confidence intervals.
+ These allow explicit visualization of a model's residual uncertainty.
+ Model-fit scores by themselves are more-abstract and consequently challenging
+ to explain to model consumers who are less-quantitatively initiated.
+\end_layout
+
+\begin_layout Standard
+Practitioners in adjacent disciplines of decision analysis and operations
+ research represent a second constituency.
+ These communities approach uncertainty from a perspective that is epistemically
+ opposite to that commonly employed by the data-science community.
+ Rooted deeply in frequentist paradigms, data scientists and machine-learning
+ professionals are inclined to answer questions along the lines of, 
+\begin_inset Quotes eld
+\end_inset
+
+Of what can I be certain?
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Decision and operations analysts tend to approach their practices from a
+ Bayesian perspective.
+ Epistemically, they focus on questions like, 
+\begin_inset Quotes eld
+\end_inset
+
+To what extent am I uncertain?
+\begin_inset Quotes erd
+\end_inset
+
+ Decision and operations analysts are as a result interested in probability
+ distributions (e.g., 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Spetzler1975"
+literal "false"
+
+\end_inset
+
+).
+ Consequently, the ability to articulate prediction-model residual errors
+ in terms of probability-density functions provides an essential bridge
+ between machine learning and these other communities.
+\end_layout
+
+\begin_layout Section*
+Summary of research.
+ 
+\end_layout
+
+\begin_layout Standard
+This research demonstrates an approach to explicitly calculate bias-variance
+ decomposition terms using Keelin's metalog-distributions framework.
+ Closed-form, continuous-function representations of probability distributions
+ result, in addition to descriptive statistics.
+ It also produces a package using the python programming language.
+\end_layout
+
+\begin_layout Standard
+Explicitly, 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "eqn (7.10)"
+key "Hastie2009"
+literal "false"
+
+\end_inset
+
+ presents the decomposition as
+\begin_inset Formula 
+\begin{multline*}
+Err\left(x_{0}\right)=\sigma_{\varepsilon}^{2}\\
++\left[E\hat{f}\left(x_{0}\right)-f(x_{0})\right]^{2}\\
++E\left[\hat{f}\left(x_{0}\right)-E\hat{f}\left(x_{0}\right)\right]^{2}\textrm{.}
+\end{multline*}
+
+\end_inset
+
+These terms are the unexplained error, the bias, and the variance terms,
+ respectively.
+ A metalog-based framework yields explicit probability distributions for
+ each.
+\end_layout
+
+\begin_layout Subsection*
+Bias and variance terms.
+\end_layout
+
+\begin_layout Standard
+The bias and variance terms follow from model residual analysis.
+ Writing in the context of linear regression, Olive encourages the consideration
+ of response and residual plots 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Olive2017"
+literal "false"
+
+\end_inset
+
+.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Residual Plots"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ illustrates.
+ Although the figure presents results of a regression model, this analysis
+ can be performed for any prediction model.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Quantitative characterization of bias-variance decomposition terms is accessible
+ from predictive-model residual analysis.
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "Residual Plots"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename graphics/Resp_resid_train_test.png
+	lyxscale 25
+	width 6.5in
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Similar techniques provide access to both the bias and variance terms.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Olive2017"
+literal "false"
+
+\end_inset
+
+ also recommends applying Locally-Weighted Scatterplot Smoothing (LOWESS)
+ to response and residual plots for both test and training data.
+ LOWESS involves windowing the scatter under analysis and calculating the
+ local mean 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cleveland1979"
+literal "false"
+
+\end_inset
+
+.
+ Illustrated in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Residual Plots"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, this leads to a locus of points, which when compared to the zero-residual
+ curve provides a visual indication of bias in predictions.
+\end_layout
+
+\begin_layout Standard
+This research calculates metalog distributions for locally-windowed scatters.
+ This produces conditional distributions of the type 
+\begin_inset Formula $p_{\varepsilon_{i}|\hat{y}_{i}}\left(\varepsilon_{i}|\hat{y}_{i}\right)$
+\end_inset
+
+ for the residual-plot case.
+ A metalog can similarly be fit to the marginal to obtain 
+\begin_inset Formula $p_{\hat{y}_{i}}\left(\hat{y}_{i}\right)$
+\end_inset
+
+.
+ A joint distribution straightforwardly follows.
+ One consequently obtains a residual-squared statistic
+\begin_inset Formula 
+\[
+\xi_{\varepsilon}=\int\int\varepsilon^{2}\,p_{\varepsilon|\hat{y}}\left(\varepsilon|\hat{y}\right)\,p_{\hat{y}}\left(\hat{y}\right)\:d\varepsilon\,d\hat{y}\textrm{.}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Distinct probability-density functions 
+\begin_inset Formula $p_{\textrm{train}}\left(\varepsilon|\hat{y}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $p_{\textrm{test}}\left(\varepsilon|\hat{y}\right)$
+\end_inset
+
+ characterize residual errors from applying the model to the training and
+ test data sets, respectively.
+ Other descriptive statistics indicate the divergence between the two distributi
+ons.
+ Adaptions of the Kolmogorov-Smirnov test 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "NIST2012"
+literal "false"
+
+\end_inset
+
+ lead to quantitive indications of extent of conformity between the two.
+ It becomes possible to quantitatively characterize errors attributable
+ to overfitting.
+ This research explores such adaptations.
+\end_layout
+
+\begin_layout Subsection*
+Irreducible-error term.
+\end_layout
+
+\begin_layout Standard
+Quantifying the irreducible-error team follows from using metalog distributions
+ to calculate the Cramer-Rao Lower Bound (CRLB) on estimation-error variance
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kay1993,Hogg2013"
+literal "false"
+
+\end_inset
+
+.
+ In its most-general form, the CRLB appears in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "pp. 39-45"
+key "Kay1993"
+literal "false"
+
+\end_inset
+
+.
+ Defining the 
+\emph on
+Fisher information matrix
+\emph default
+ as
+\begin_inset Formula 
+\[
+\left[\boldsymbol{\mathrm{I}}\left(\boldsymbol{\theta}\right)\right]_{i,j}=-\mathcal{E}\left[\frac{\partial^{2}\,\ln\left(p\left(\mathbf{\mathrm{x}};\,\boldsymbol{\theta}\right)\right)}{\partial\theta_{i}\,\partial\theta_{j}}\right]\textrm{,}
+\]
+
+\end_inset
+
+a lower bound on the estimation-error variance for 
+\begin_inset Formula $\theta_{i}$
+\end_inset
+
+ is calculated using
+\begin_inset Formula 
+\[
+\textrm{var}\left\{ \hat{\theta}_{i}\right\} \geq\left[\boldsymbol{\mathrm{I}}^{-1}\left(\boldsymbol{\theta}\right)\right]_{i,i}\textrm{.}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, metalog distributions are presently only available for univariate distribut
+ions.
+ The Fisher information matrix is generally defined in terms of multivariate
+ distributions 
+\begin_inset Formula $p\left(\mathbf{\mathrm{x}};\,\boldsymbol{\theta}\right)$
+\end_inset
+
+.
+ Metalog distributions can obtained for distinct, individual, univariate
+ components of a multivariate distribution represented in an orthogonal-transfor
+m space.
+ QR and singular-value decomposition are examples (e.g., 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Horn2013,Jolliffe2002"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Obviously 
+\begin_inset Formula $Pr\left\{ \mathrm{\boldsymbol{x}}\leq\boldsymbol{\mathscr{X}}\right\} $
+\end_inset
+
+ is associated with an infinite quantity of 
+\begin_inset Formula $Pr\left\{ u_{i}\leq\mathscr{U}_{i}\right\} $
+\end_inset
+
+ values for 
+\begin_inset Formula $\mathbf{\mathscr{X}}\subset\mathscr{U}_{1}\times\ldots\times\mathscr{U}_{N}$
+\end_inset
+
+, where the 
+\begin_inset Formula $\left\{ \mathscr{U}_{n}\right\} $
+\end_inset
+
+ are the components of the orthogonal-transform-space components of 
+\begin_inset Formula $\boldsymbol{\mathscr{X}}$
+\end_inset
+
+.
+ This problem occurs when seeking interval probabilities in 
+\begin_inset Formula $\boldsymbol{\mathscr{X}}$
+\end_inset
+
+.
+ This complication can be handled using optimization techniques, such as
+ Data-Envelope Analysis (e.g., 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ozcan2008"
+literal "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%
+\backslash
+onecolumn
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Agresti2013"
+key "Agresti2013"
+literal "false"
+
+\end_inset
+
+A.
+ Agresti, 
+\emph on
+Categorical Data Analysis
+\emph default
+, third edition, Hoboken, NJ: Wiley, 2013.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Cleveland1979"
+key "Cleveland1979"
+literal "false"
+
+\end_inset
+
+W.
+ S.
+ Cleveland, 
+\begin_inset Quotes eld
+\end_inset
+
+Robust locally weighted regression and smoothing scatterplots
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\emph on
+Journal of the American Statistical Association
+\emph default
+, 74(368)829-836, December 1979.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Cover2006"
+key "Cover2006"
+literal "false"
+
+\end_inset
+
+T.
+ M.
+ Cover, J.
+ A.
+ Thomas, 
+\emph on
+Elements of Information Theory
+\emph default
+, second edition, Hoboken, NJ: Wiley, 2006.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Dielman2005"
+key "Dielman2005"
+literal "false"
+
+\end_inset
+
+T.
+ E.
+ Dielman, 
+\emph on
+Applied Regression Analysis
+\emph default
+, Mason, OH: South-Western Cengage Learning, 2005.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Hastie2009"
+key "Hastie2009"
+literal "false"
+
+\end_inset
+
+T.
+ Hastie, R.
+ Tibshirani, J.
+ Friedman, 
+\emph on
+The Elements of Statistical Learning
+\emph default
+, second edition, New York: Springer Science, 2009.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Hogg2013"
+key "Hogg2013"
+literal "false"
+
+\end_inset
+
+R.
+ V.
+ Hogg, J.
+ W.
+ McKean, A.
+ T.
+ Craig, 
+\emph on
+Mathematical Statistics
+\emph default
+, seventh edition, Boston, MA: Pearson, 2013.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Horn2013"
+key "Horn2013"
+literal "false"
+
+\end_inset
+
+R.
+ A.
+ Horn, C.
+ R.
+ Johnson, 
+\emph on
+Matrix Analysis
+\emph default
+, second edition, Cambridge, UK: Cambridge University Press, 2013.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Jolliffe2002"
+key "Jolliffe2002"
+literal "false"
+
+\end_inset
+
+I.
+ T.
+ Jolliffe, 
+\emph on
+Principal Component Analysis
+\emph default
+, second edition, New York: Springer-Vaerlag, 2002.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Kay1993"
+key "Kay1993"
+literal "false"
+
+\end_inset
+
+S.
+ M.
+ Kay, 
+\emph on
+Signal Processing: Estimation Theory
+\emph default
+, Englewood Cliffs, NJ: Prentice Hall, 1993.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Keelin2016"
+key "Keelin2016"
+literal "false"
+
+\end_inset
+
+T.
+ W.
+ Keelin, 
+\begin_inset Quotes eld
+\end_inset
+
+The metalog distributions
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\emph on
+Decision Analysis
+\emph default
+, INFORMS, 13(4):243-277.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "NIST2012"
+key "NIST2012"
+literal "false"
+
+\end_inset
+
+
+\emph on
+Engineering Statistics Handbook
+\emph default
+, National Institute for Standards and Technology, 2012, https://bityl.co/4YRI.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Olive2017"
+key "Olive2017"
+literal "false"
+
+\end_inset
+
+D.
+ J.
+ Olive, 
+\emph on
+Linear Regression Analysis
+\emph default
+, Cham, CH: Springer, 2017.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Ozcan2008"
+key "Ozcan2008"
+literal "false"
+
+\end_inset
+
+Y.
+ A.
+ Ozcan, 
+\emph on
+Health Care Benchmarks and Performance Evaluation
+\emph default
+, New York: Springer Science + Business, 2004.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Sahai2004"
+key "Sahai2004"
+literal "false"
+
+\end_inset
+
+H.
+ Sahai, M.
+ M.
+ Oheda, 
+\emph on
+Analysis of Variance for Random Models: Volume I
+\emph default
+, New York: Springer Science + Business, 2004.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "Spetzler1975"
+key "Spetzler1975"
+literal "false"
+
+\end_inset
+
+Carl S.
+ Spetzler, Carl-Axel S.
+ Staël Von Holstein, (1975) 
+\begin_inset Quotes eld
+\end_inset
+
+Exceptional Paper—Probability Encoding in Decision Analysis
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\emph on
+Management Science
+\emph default
+, INFORMS, 22(3):340-358.
+\end_layout
+
+\end_body
+\end_document
