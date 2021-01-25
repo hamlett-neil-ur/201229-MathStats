@@ -219,12 +219,20 @@ ing practice.
  qualitative indications of possible model overfitting.
  Explicit calculation of BVD terms is generally problematic, absent assumptions
  about convenient probability distributions.
- Metalog distributions, an emerging technique from the Decision-Analysis
+ 
+\end_layout
+
+\begin_layout Abstract
+Metalog distributions, an emerging technique from the Decision-Analysis
  community, provide a mechanism for explicit calculation of BVD terms.
  Metalogs fit arbitrary empirical distributions to closed-form, multiply-differe
 ntiable, continuous functions represented as series.
- The bias and variance terms result from metalog-distribution fits to prediction
--model training- and test-data residual errors employing a method resembling
+ 
+\end_layout
+
+\begin_layout Abstract
+The bias and variance terms result from metalog-distribution fits to prediction-
+model training- and test-data residual errors employing a method resembling
  Locally Weighted Scatterplot Smoothing (LOWESS).
  Instead of calculating means as is done with LOWESS, metalog-fit probability-de
 nsity functions are instead obtained.
@@ -233,8 +241,12 @@ nsity functions are instead obtained.
  Applying Kolmogorov-Smirnov or other tests to the resulting bias and variance
  distributions leads to a quantitative characterization of prediction-model
  overfitting.
- Metalog distributions can similarly be employed to estimate Cramer-Row
- Lower Bounds (CRLB) on estimation-error variance.
+ 
+\end_layout
+
+\begin_layout Abstract
+Metalog distributions can similarly be employed to estimate Cramer-Row Lower
+ Bounds (CRLB) on estimation-error variance.
  This occurs from fitting orthogonal-transform-space representations of
  the explanatory variables to metaled distributions.
  The CLRB offers a proxy for the irreducible-variance term in the BVD.

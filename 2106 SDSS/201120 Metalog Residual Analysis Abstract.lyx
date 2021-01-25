@@ -410,7 +410,7 @@ Metalog distributions' formulations are based on the quantile function
  defined as
 \begin_inset Formula 
 \[
-x=M_{n}\left(y\right)\Leftrightarrow y=Pr\left\{ x\leq\mathscr{X}\right\} =P_{\mathscr{X}}\left(x\right)\textrm{.}
+x=M_{n}\left(y\right)\Leftrightarrow y=Pr\left\{ \mathscr{X}\leq x\right\} =P_{\mathscr{X}}\left(x\right)\textrm{.}
 \]
 
 \end_inset
